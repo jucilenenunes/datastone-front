@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Dashboard from '../components/DtsTemplate.vue'
 import Clientes from '../views/ClientesView.vue'
-import Dashboard from '../views/DashboardView.vue'
 import Produtos from '../views/ProdutosView.vue'
 
 const routes = [
