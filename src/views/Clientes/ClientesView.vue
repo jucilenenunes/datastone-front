@@ -51,7 +51,7 @@
 import mock from "./mock";
 
 export default {
-  name: 'DtsClientes',
+  name: 'Clientes',
 
   components: {
 

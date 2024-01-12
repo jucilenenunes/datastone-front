@@ -1,17 +1,17 @@
 <template>
   <v-container fluid>
     <div class="dashboard-page">
-      <v-row no-gutters class="d-flex justify-space-between mt-10 mb-6">
-        <h1 class="page-title">Cadastro de Produtos</h1>
-        <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-              <v-btn v-model="dialog" v-bind="attrs" v-on="on" icon="mdi-plus" color="primary" />
-            </template>
-          
-            
-          
-          
-        </v-menu>
+      <v-row no-gutters class="mt-10 mb-6">
+        
+        <v-col>
+          <h1 class="page-title">Cadastro de Produtos</h1>
+        </v-col>
+        <v-col cols="1">
+          <DialogForm title="Novo Produto">
+            Teste de child...
+          </DialogForm>
+        </v-col>
+        
       </v-row>
       <v-row>
         <v-col cols="12 b1">
@@ -54,13 +54,13 @@
 <script>
 
 import mock from "./mock";
-
+import DialogForm from "@/components/DtsDialogForm.vue";
 
 export default {
   name: 'Produtos',
 
   components: {
-     
+     DialogForm,
   },
 
   data() {
