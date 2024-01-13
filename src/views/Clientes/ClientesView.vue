@@ -18,6 +18,9 @@
               <thead class="pl-2">
                 <tr>
                   <th class="text-left pa-6">Nome do Cliente</th>
+                  <th class="text-center">Documento</th>
+                  <th class="text-center">Telefone</th>
+                  <th class="text-center">Email</th>
                   <th class="text-center">Status</th>
                   <th class="text-right">Ações</th>
                 </tr>
@@ -25,6 +28,9 @@
               <tbody>
                 <tr v-for="item in mock.clientes" :key="item.nome">
                   <td class="pa-6">{{ item.nome }}</td>
+                  <td class="pa-6">{{ item.documento }}</td>
+                  <td class="pa-6">{{ item.telefone }}</td>
+                  <td class="pa-6">{{ item.email }}</td>
                   <td v-if="item.ativo" class="text-center">
                     <v-chip link color="success" class="ma-2 ml-0">
                       Ativo
