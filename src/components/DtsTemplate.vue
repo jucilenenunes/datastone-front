@@ -37,5 +37,5 @@
 <script setup>
 import Navbar from '../components/DtsNavbar.vue';
 import { ref } from 'vue';
-const isDrawerOpen = ref(ref)
+const isDrawerOpen = ref(false)
 </script>

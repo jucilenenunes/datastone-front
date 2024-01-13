@@ -2,16 +2,14 @@
   <v-container fluid>
     <div class="dashboard-page">
       <v-row no-gutters class="mt-10 mb-6">
-        
         <v-col>
           <h1 class="page-title">Cadastro de Produtos</h1>
         </v-col>
         <v-col cols="1">
-          <DialogForm title="Novo Produto">
-            Teste de child...
+          <DialogForm :title="viewData(produto).dialogTitle" :primaryText="viewData(produto).primaryText" @primaryClick="handleSalvar">
+            <FormProduto :produto="produto" />
           </DialogForm>
         </v-col>
-        
       </v-row>
       <v-row>
         <v-col cols="12 b1">
@@ -52,22 +50,43 @@
 </template>
 
 <script>
-
 import mock from "./mock";
 import DialogForm from "@/components/DtsDialogForm.vue";
+import FormProduto from "@/views/Produtos/components/FormProduto.vue"
 
 export default {
   name: 'Produtos',
-
   components: {
-     DialogForm,
+    DialogForm,
+    FormProduto
   },
-
+  methods: {
+    handleSalvar() {
+      console.log('Realizar validação...');
+      if (this.viewData(this.produto).cadastro) {
+        console.log('Chamar cadastro...', this.produto);
+      } else {
+        console.log('Chamar alteração...', this.produto);
+      }
+    },
+    viewData(x) {
+      return !!(x?.id) ? {
+        cadastro: false,
+        dialogTitle: "Alterar Produto",
+        primaryText: "Salvar",
+      } : {
+        cadastro: true,
+        dialogTitle: "Cadastrar Produto",
+        primaryText: "Cadastrar",
+      }
+    }
+  },
   data() {
     return {
       mock,
+      produto: { id: "null", nome: 'Produto Teste 1', status: true }, 
     }
   },
 }
+
 </script>
-  

@@ -1,5 +1,5 @@
 export default {
-  produtos: [
+  clientes: [
     {
       id: 0,
       nome: 'Maria da Silva',
