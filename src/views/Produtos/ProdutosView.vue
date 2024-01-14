@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    {{  }}
     <div class="dashboard-page">
       <v-row no-gutters class="mt-10 mb-6">
         <v-col>
@@ -7,7 +8,7 @@
         </v-col>
         <v-col cols="1">
           <DialogForm :title="viewDados(produto).dialogTitle" :primaryText="viewDados(produto).primaryText"
-            @primaryClick="handleSalvar">
+            @primaryClick="handleSalvar" :open="editing">
             <FormProduto :produto="produto" />
           </DialogForm>
         </v-col>
@@ -38,7 +39,7 @@
                   </td>
                   <td class="text-right">
                     <v-btn color="error" icon="mdi-trash-can" class="mr-2" />
-                    <v-btn color="primary" icon="mdi-pencil" />
+                    <v-btn color="primary" icon="mdi-pencil" @click="editar(item)" />
                   </td>
                 </tr>
               </tbody>
@@ -65,13 +66,21 @@ export default {
     carregarDados() {
       getProdutos().then(
         (data) => {
-          this.produtos = [ ...data ];
+          this.produtos = [...data];
         }
       ).catch(
         (e) => {
           console.log("Erro ao carregar produtos.");
         }
       );
+    },
+    editar(dado) {
+      console.log("editar", dado);
+      this.produto = null;
+      if (!!dado && dado.id) {
+        this.produto = { dado };
+      }
+      this.editing = true;
     },
     handleSalvar() {
       console.log('Realizar validação...');
@@ -96,7 +105,8 @@ export default {
   data() {
     return {
       produtos: [],
-      produto: { id: "null", nome: 'Produto Teste 1', status: true },
+      produto: {},
+      editing: false
     }
   },
   mounted() {

@@ -49,7 +49,7 @@
 <script>
 
   export default {
-    props: ['title', 'primaryText', 'secondaryText'],
+    props: ['title', 'primaryText', 'secondaryText', 'open'],
     emits: ['primaryClick', 'secondaryClick', 'close', 'validate'],
     data: () => ({
       dialog: false
@@ -57,5 +57,8 @@
     components: {
 
     },
+    mounted() {
+      this.dialog = this.open ?? this.dialog;
+    }
   }
 </script>
