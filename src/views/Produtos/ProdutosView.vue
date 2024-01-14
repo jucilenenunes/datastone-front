@@ -6,7 +6,8 @@
           <h1 class="page-title">Cadastro de Produtos</h1>
         </v-col>
         <v-col cols="1">
-          <DialogForm :title="viewData(produto).dialogTitle" :primaryText="viewData(produto).primaryText" @primaryClick="handleSalvar">
+          <DialogForm :title="viewData(produto).dialogTitle" :primaryText="viewData(produto).primaryText"
+            @primaryClick="handleSalvar">
             <FormProduto :produto="produto" />
           </DialogForm>
         </v-col>
@@ -23,7 +24,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in mock.produtos" :key="item.nome">
+                <tr v-for="item in produtos" :key="item.nome">
                   <td class="pa-6">{{ item.nome }}</td>
                   <td v-if="item.ativo" class="text-center">
                     <v-chip link color="success" class="ma-2 ml-0">
@@ -50,9 +51,9 @@
 </template>
 
 <script>
-import mock from "./mock";
 import DialogForm from "@/components/DtsDialogForm.vue";
 import FormProduto from "@/views/Produtos/components/FormProduto.vue"
+import api from '@/helpers/api';
 
 export default {
   name: 'Produtos',
@@ -61,6 +62,17 @@ export default {
     FormProduto
   },
   methods: {
+    carregarDados() {
+      api.get("/produtos").then(
+        (rs) => {
+          this.produtos = [ ...rs.data ];
+        }
+      ).catch(
+        (e) => {
+          console.log("Erro ao carregaro produtos.");
+        }
+      );
+    },
     handleSalvar() {
       console.log('Realizar validação...');
       if (this.viewData(this.produto).cadastro) {
@@ -83,10 +95,13 @@ export default {
   },
   data() {
     return {
-      mock,
-      produto: { id: "null", nome: 'Produto Teste 1', status: true }, 
+      produtos: [],
+      produto: { id: "null", nome: 'Produto Teste 1', status: true },
     }
   },
+  mounted() {
+    this.carregarDados();
+  }
 }
 
 </script>
