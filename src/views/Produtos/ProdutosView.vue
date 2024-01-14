@@ -69,7 +69,7 @@ export default {
         }
       ).catch(
         (e) => {
-          console.log("Erro ao carregaro produtos.");
+          console.log("Erro ao carregar produtos.");
         }
       );
     },

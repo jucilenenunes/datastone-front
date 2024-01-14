@@ -26,7 +26,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in mock.clientes" :key="item.nome">
+                <tr v-for="item in clientes" :key="item.nome">
                   <td class="pa-6">{{ item.nome }}</td>
                   <td class="pa-6">{{ item.documento }}</td>
                   <td class="pa-6">{{ item.telefone }}</td>
@@ -56,9 +56,9 @@
 </template>
 
 <script>
-import mock from "./mock";
 import DialogForm from "@/components/DtsDialogForm.vue";
 import FormCliente from "./components/FormCliente.vue"
+import { getClientes } from '@/services/clientes';
 
 export default {
   name: 'Clientes',
@@ -67,6 +67,17 @@ export default {
     FormCliente
   },
   methods: {
+    carregarDados() {
+      getClientes().then(
+        (data) => {
+          this.clientes = [ ...data ];
+        }
+      ).catch(
+        (e) => {
+          console.log("Erro ao carregar clientes.");
+        }
+      );
+    },
     handleSalvar() {
       console.log('Realizar validação...');
       if (this.viewData(this.cliente).cadastro) {
@@ -89,10 +100,13 @@ export default {
   },
   data() {
     return {
-      mock,
+      clientes: [],
       cliente: { id: null, nome: 'Cliente Teste 1', status: true }, 
     }
   },
+  mounted() {
+    this.carregarDados();
+  }
 }
 </script>
   
