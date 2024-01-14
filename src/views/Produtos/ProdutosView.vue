@@ -53,7 +53,7 @@
 <script>
 import DialogForm from "@/components/DtsDialogForm.vue";
 import FormProduto from "@/views/Produtos/components/FormProduto.vue"
-import serviceProdutos from '@/services/produtos';
+import { getProdutos } from '@/services/produtos';
 
 export default {
   name: 'Produtos',
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     carregarDados() {
-      serviceProdutos().then(
+      getProdutos().then(
         (data) => {
           this.produtos = [ ...data ];
         }
