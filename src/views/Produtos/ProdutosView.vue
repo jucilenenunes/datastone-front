@@ -6,7 +6,7 @@
           <h1 class="page-title">Cadastro de Produtos</h1>
         </v-col>
         <v-col cols="1">
-          <DialogForm :title="viewData(produto).dialogTitle" :primaryText="viewData(produto).primaryText"
+          <DialogForm :title="viewDados(produto).dialogTitle" :primaryText="viewDados(produto).primaryText"
             @primaryClick="handleSalvar">
             <FormProduto :produto="produto" />
           </DialogForm>
@@ -53,7 +53,7 @@
 <script>
 import DialogForm from "@/components/DtsDialogForm.vue";
 import FormProduto from "@/views/Produtos/components/FormProduto.vue"
-import api from '@/helpers/api';
+import serviceProdutos from '@/services/produtos';
 
 export default {
   name: 'Produtos',
@@ -63,9 +63,9 @@ export default {
   },
   methods: {
     carregarDados() {
-      api.get("/produtos").then(
-        (rs) => {
-          this.produtos = [ ...rs.data ];
+      serviceProdutos().then(
+        (data) => {
+          this.produtos = [ ...data ];
         }
       ).catch(
         (e) => {
@@ -75,13 +75,13 @@ export default {
     },
     handleSalvar() {
       console.log('Realizar validação...');
-      if (this.viewData(this.produto).cadastro) {
+      if (this.viewDados(this.produto).cadastro) {
         console.log('Chamar cadastro...', this.produto);
       } else {
         console.log('Chamar alteração...', this.produto);
       }
     },
-    viewData(x) {
+    viewDados(x) {
       return !!(x?.id) ? {
         cadastro: false,
         dialogTitle: "Alterar Produto",
